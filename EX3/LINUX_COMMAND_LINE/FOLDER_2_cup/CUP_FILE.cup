@@ -127,10 +127,26 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					;
 					
 stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
-					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
+					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
+					| call:cl SEMICOLON											{: RESULT = new AST_STMT_CALL(cl); :}
+					| RETURN SEMICOLON											{: RESULT = new AST_STMT_RETURN(); :}
+					| RETURN exp:e SEMICOLON									{: RESULT = new AST_STMT_RETURN_EXP(e); :}
+					| LBRACE stmtList:body RBRACE								{: RESULT = new AST_STMT_MULTSTMTS(body); :}
+					| type:t ID:name SEMICOLON									{: RESULT = new AST_STMT_TYPE(t,name); :}
+					| type:t ID:name ASSIGN exp:e SEMICOLON						{: RESULT = new AST_STMT_TYPE_EXP(t,name,e); :}
 					;
+					
+type		::= 	//TODO;
 
+call		::= 	virualCall:vc 	{:RESULT = new AST_CALL_VCALL(vc); :};
+
+virtualCall ::= 	exp:e DOT ID:name LPAREN RPAREN 				  {: RESULT = new AST_VCALL_EXP(e,name); :}
+					| exp:e DOT ID:name LPAREN expList:elst RPAREN    {: RESULT = new AST_VCALL_EXP_EXPLIST(e,name,elst); :}
+					| ID:name LPAREN RPAREN							  {: RESULT = new AST_VCALL_SIMPLE(name); :}
+					| ID:name LPAREN explist:elst RPAREN			  {: RESULT = new AST_VCALL_SIMPLE_EXPLIST(name,elst); :}
+				
+				
 exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
 					| exp:e1 PLUS  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
