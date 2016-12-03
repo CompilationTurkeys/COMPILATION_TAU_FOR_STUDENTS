@@ -200,3 +200,19 @@ binop       ::=     MINUS                                {: RESULT = new AST_BIN
                     |EQUAL                                {: RESULT = new AST_BINOP_EQUAL();:}
                     |NEQUAL                                {: RESULT = new AST_BINOP_NEQUAL();:}
                     ;
+
+
+formals    ::=      type:t ID:name                      {: RESULT = new AST_FORMALS_TYPEID(t, name);:}
+                    | type:t ID:name commaTypeIdList:l  {: RESULT = new AST_FORMALS_COMMATYPEID_LIST(name, t, l);:}
+                    ;
+
+commaTypeIDList ::= commaTypeID:cmi                     {: RESULT = new AST_COMMATYPEID_LIST(cmi, null);:}
+                    | commaTypeIDList:l commaTypeID:cmi {: RESULT = new AST_COMMATYPEID_LIST(cmi, l);:}
+                    ;
+
+commaTypeID     ::= COMMA type:t ID:name                {: RESULT = new AST_COMMATYPEID(t, name);:}
+                    ;
+
+
+field           ::= type:t ID:name SEMICOLON // TODO FINISH FIELD AND METHOD
+
