@@ -7,7 +7,7 @@ public class AST_LITERAL_STRING extends AST_LITERAL
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_LITERAL_STRING(str)
+	public AST_LITERAL_STRING(String str)
 	{
 		this.str = str;
 	}
