@@ -153,5 +153,5 @@ COMMENTS		= "/*"((("*"[^/])?)|[^*])*"*/" | "//".*
 
 }
 
-[^]                 { System.exit(-1);}
+[^]                 { System.out.print("FAIL");System.exit(-1);}
 

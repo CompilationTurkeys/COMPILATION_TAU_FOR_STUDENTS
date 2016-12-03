@@ -90,7 +90,7 @@ terminal UMINUS;
 /*************/
 terminal Integer INT;
 terminal String ID;
-terminal STRING STR;
+terminal String STR;
 
 
 terminal String		CLASS_ID;
@@ -125,10 +125,30 @@ stmtList	::=		stmt:s								{: RESULT = new AST_STMT_LIST(s,null); :}
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :} 
-					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :} 
-					
+					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :} 	
 					;
 					
+program		::=		classDeclLst:cdl					{: RESULT = new AST_PROGRAM_CLASS_DECL_LIST(cdl);  :}
+					;
+
+
+classDeclLst::=		classDecl:cd						{: RESULT = new AST_CLASSDECL_LIST(cd,null); :}
+					| classDeclLst:l classDecl:cd		{: RESULT = new AST_CLASSDECL_LIST(cd,l); :}
+					;
+					
+classDecl	::=		CLASS CLASS_ID:name LBRACE fieldMethodList:l RBRACE {: RESULT = new AST_CLASSDECL_SIMPLE_LIST(name,l) :}
+					| CLASS CLASS_ID:name LBRACE RBRACE {: RESULT = new AST_CLASSDECL_SIMPLE(name) :}
+					| CLASS CLASS_ID:name EXTENDS CLASS_ID:otherName LBRACE fieldMethodList:l RBRACE {: RESULT = new AST_CLASSDECL_EXTENDED(name,otherName) :}
+					| CLASS CLASS_ID:name EXTENDS CLASS_ID:otherName LBRACE RBRACE {: RESULT = new AST_CLASSDECL_EXTENDED_LIST(name,otherName,l) :}
+					;
+
+
+fieldMethodList :=  field:f 	{: RESULT = new AST_FIELD_METHOD_LIST(f,null); :}
+					| method:m 	{: RESULT = new AST_FIELD_METHOD_LIST(m,null); :}
+					| fieldMethodList:l field:f {: RESULT = new AST_FIELD_METHOD_LIST(f,l); :}  
+					| fieldMethodList:l method:m {: RESULT = new AST_FIELD_METHOD_LIST(m,l); :}  		
+
+
 stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
@@ -136,11 +156,16 @@ stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v
 					| RETURN SEMICOLON											{: RESULT = new AST_STMT_RETURN(); :}
 					| RETURN exp:e SEMICOLON									{: RESULT = new AST_STMT_RETURN_EXP(e); :}
 					| LBRACE stmtList:body RBRACE								{: RESULT = new AST_STMT_MULTSTMTS(body); :}
+					| LBRACE stmtList:body RBRACE								{: RESULT = new AST_STMT_MULTSTMTS_EMPTY(); :}
 					| type:t ID:name SEMICOLON									{: RESULT = new AST_STMT_TYPE(t,name); :}
 					| type:t ID:name ASSIGN exp:e SEMICOLON						{: RESULT = new AST_STMT_TYPE_EXP(t,name,e); :}
 					;
 					
-type		::= 	//TODO;
+type		::= 	INTEGER  {: RESULT = new AST_TYPE_INT(); :}
+					| STRING  {: RESULT = new AST_TYPE_STRING(); :}
+					| CLASS_ID:name {: RESULT = new AST_TYPE_CLASS(name); :}
+					| type:t LBRACK RBRACK {: RESULT = new AST_TYPE_ARRAY(t); :}
+					;
 
 call		::= 	virualCall:vc 	{:RESULT = new AST_CALL_VCALL(vc); :};
 
@@ -150,13 +175,13 @@ virtualCall ::= 	exp:e DOT ID:name LPAREN RPAREN 				  {: RESULT = new AST_VCALL
 					| ID:name LPAREN explist:elst RPAREN			  {: RESULT = new AST_VCALL_SIMPLE_EXPLIST(name,elst); :}
 				
 				
-exp          ::=       var:v                       {: RESULT = new AST_EXP_VAR(v);          :}
-                       | call:cl                    {: RESULT = new AST_CALL(cl);          :}
-                       | exp:e1 binop:b  exp:e2            {: RESULT = new AST_EXP_BINOP(e1, e2, b);:}
-                       | NEW type:t LBRACK exp:e RBRACK    {: RESULT = new AST_EXP_TYPE(t, e);:}
-                       | NEW CLASS_ID:name LPAREN RPAREN   {: RESULT = new AST_EXP_CLASS(name);:}
-                       | literal:l   {: RESULT = new AST_EXP_LITERAL(l);:}
-                       | LPAREN exp:e RPAREN    {: RESULT = new AST_EXP_INPAREN(e);:}
+exp          ::=       var:v                      					  {: RESULT = new AST_EXP_VAR(v);          :}
+                       | call:cl                    				  {: RESULT = new AST_CALL(cl);          :}
+                       | exp:e1 binop:b  exp:e2            			  {: RESULT = new AST_EXP_BINOP(e1, e2, b);:}
+                       | NEW type:t LBRACK exp:e RBRACK    			  {: RESULT = new AST_EXP_TYPE(t, e);:}
+                       | NEW CLASS_ID:name LPAREN RPAREN   			  {: RESULT = new AST_EXP_CLASS(name);:}
+                       | literal:l   							      {: RESULT = new AST_EXP_LITERAL(l);:}
+                       | LPAREN exp:e RPAREN    					  {: RESULT = new AST_EXP_INPAREN(e);:}
                        ;
 
 
