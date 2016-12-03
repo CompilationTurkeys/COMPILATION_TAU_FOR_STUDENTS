@@ -52,12 +52,46 @@ terminal RBRACE;
 terminal SEMICOLON;
 terminal ASSIGN;
 
+terminal CLASS;
+terminal BOOLEAN;
+terminal BREAK;
+terminal COMMA;
+terminal CONTINUE;
+terminal EQUAL;
+terminal EXTENDS;
+terminal ELSE;
+terminal FALSE;
+terminal GT;
+terminal GTE;
+terminal INT;
+terminal INTEGER;
+terminal LAND;
+terminal LENGTH;
+terminal NEW;
+terminal LNEG;
+terminal LOR;
+terminal LT;
+terminal LTE;
+terminal MOD;
+terminal NEQUAL;
+terminal NULL;
+terminal RETURN;
+terminal STRING;
+terminal THIS;
+terminal TRUE;
+terminal VOID;
+terminal WHILE;
+
+
 /*************/
 /* TERMINALS */
 /*************/
 terminal Integer INT;
 terminal String ID;
 terminal UMINUS;
+
+terminal String		CLASS_ID;
+terminal String		QUOTE;
 
 non terminal AST_EXP exp;
 non terminal AST_VAR var;
