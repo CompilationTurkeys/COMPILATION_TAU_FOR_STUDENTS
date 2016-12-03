@@ -81,6 +81,8 @@ terminal THIS;
 terminal TRUE;
 terminal VOID;
 terminal WHILE;
+terminal UMINUS;
+
 
 
 /*************/
@@ -88,7 +90,8 @@ terminal WHILE;
 /*************/
 terminal Integer INT;
 terminal String ID;
-terminal UMINUS;
+terminal STRING STR;
+
 
 terminal String		CLASS_ID;
 terminal String		QUOTE;
@@ -147,8 +150,28 @@ virtualCall ::= 	exp:e DOT ID:name LPAREN RPAREN 				  {: RESULT = new AST_VCALL
 					| ID:name LPAREN explist:elst RPAREN			  {: RESULT = new AST_VCALL_SIMPLE_EXPLIST(name,elst); :}
 				
 				
-exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
-					| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
-					| exp:e1 PLUS  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
-					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 1);:}
-					;
+exp          ::=       var:v                       {: RESULT = new AST_EXP_VAR(v);          :}
+                       | call:cl                    {: RESULT = new AST_CALL(cl);          :}
+                       | exp:e1 binop:b  exp:e2            {: RESULT = new AST_EXP_BINOP(e1, e2, b);:}
+                       | NEW type:t LBRACK exp:e RBRACK    {: RESULT = new AST_EXP_TYPE(t, e);:}
+                       | NEW CLASS_ID:name LPAREN RPAREN   {: RESULT = new AST_EXP_CLASS(name);:}
+                       | literal:l   {: RESULT = new AST_EXP_LITERAL(l);:}
+                       | LPAREN exp:e RPAREN    {: RESULT = new AST_EXP_INPAREN(e);:}
+                       ;
+
+
+literal     ::=     INT:num                              {: RESULT = new AST_LITERAL_NUM(num);:}
+                    | STR:str                            {: RESULT = new AST_LITERAL_STRING(str);:}
+                    | NULL                               {: RESULT = new AST_LITERAL_NULL();:}
+                    ;
+
+binop       ::=     MINUS                                {: RESULT = new AST_BINOP_MINUS();:}
+                    |TIMES                                {: RESULT = new AST_BINOP_TIMES();:}
+                    |DIVIDE                                {: RESULT = new AST_BINOP_DIVIDE();:}
+                    |LT                                {: RESULT = new AST_BINOP_LT();:}
+                    |LTE                                {: RESULT = new AST_BINOP_LTE();:}
+                    |GT                                {: RESULT = new AST_BINOP_GT();:}
+                    |GTE                                {: RESULT = new AST_BINOP_GTE();:}
+                    |EQUAL                                {: RESULT = new AST_BINOP_EQUAL();:}
+                    |NEQUAL                                {: RESULT = new AST_BINOP_NEQUAL();:}
+                    ;
