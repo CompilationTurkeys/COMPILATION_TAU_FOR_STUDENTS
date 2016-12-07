@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_FIELD_IDLIST extends AST_Node
+public class AST_FIELD_IDLIST extends AST_FIELD
 {
 	public AST_IDLIST lst;
 	public AST_TYPE type;

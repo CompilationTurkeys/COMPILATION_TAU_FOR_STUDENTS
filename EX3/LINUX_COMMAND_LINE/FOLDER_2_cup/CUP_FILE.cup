@@ -149,7 +149,7 @@ virtualCall ::= 	var:v DOT ID:name LPAREN expList:elst RPAREN      {: RESULT = n
 					;
 				
 exp          ::=       var:v                      					  {: RESULT = new AST_EXP_VAR(v);          :}
-                       | call:cl                    				  {: RESULT = new AST_CALL(cl);          :}
+                       | call:cl                    				  {: RESULT = new AST_EXP_CALL(cl);          :}
                        | exp:e1 binop:op exp:e2            			  {: RESULT = new AST_EXP_BINOP(e1, e2, op);:}
                        | NEW type:t LBRACK exp:e RBRACK    			  {: RESULT = new AST_EXP_TYPE(t, e);:}
                        | NEW CLASS_ID:name LPAREN RPAREN   			  {: RESULT = new AST_EXP_CLASS(name);:}
@@ -168,9 +168,9 @@ literal     ::=     INT:num                              {: RESULT = new AST_LIT
                     | NULL                               {: RESULT = new AST_LITERAL_NULL();:}
                     ;
 
-binop       ::=     MINUS                                {: RESULT = new AST_BINOP_MINUS();:}
-					| PLUS								 {: RESULT = new AST_BINOP_PLUS();: }
-                    | TIMES                                {: RESULT = new AST_BINOP_TIMES();:}
+binop       ::=     MINUS                                {: RESULT = new AST_BINOP_MINUS(); :}
+					| PLUS								 {: RESULT = new AST_BINOP_PLUS(); :}
+                    | TIMES                                {: RESULT = new AST_BINOP_TIMES(); :}
                     | DIVIDE                                {: RESULT = new AST_BINOP_DIVIDE();:}
                     | LT                                {: RESULT = new AST_BINOP_LT();:}
                     | LTE                                {: RESULT = new AST_BINOP_LTE();:}
@@ -191,7 +191,6 @@ commaTypeIDList ::= commaTypeID:cmi                     {: RESULT = new AST_COMM
 commaTypeID     ::= COMMA type:t ID:name                {: RESULT = new AST_COMMATYPEID(t, name);:}
                     ;
 
-
 field           ::=	type:t idList:l SEMICOLON {: RESULT = new AST_FIELD_IDLIST(t,l); :}
 					;
 				
@@ -209,3 +208,4 @@ method			::= type:t ID:name LPAREN RPAREN LBRACE RBRACE {: RESULT= new AST_METHO
 					| VOID ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE {: RESULT = new AST_METHOD_VOID_STMT(name,l); :}
 				    ;
 
+				    

@@ -2,7 +2,7 @@ package AST;
 
 public class AST_VCALL_SIMPLE extends AST_VCALL
 {
-	public String name;
+	public AST_CALL name;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
