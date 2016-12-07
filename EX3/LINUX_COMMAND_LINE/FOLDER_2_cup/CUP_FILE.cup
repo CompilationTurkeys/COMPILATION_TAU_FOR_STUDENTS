@@ -111,10 +111,10 @@ classDeclLst::=		classDecl:cd						{: RESULT = new AST_CLASSDECL_LIST(cd,null); 
 					| classDeclLst:l classDecl:cd		{: RESULT = new AST_CLASSDECL_LIST(cd,l); :}
 					;
 					
-classDecl	::=		CLASS CLASS_ID:name LBRACE fieldMethodList:l RBRACE {: RESULT = new AST_CLASSDECL_SIMPLE_LIST(name,l, v) :}
-					| CLASS CLASS_ID:name LBRACE RBRACE {: RESULT = new AST_CLASSDECL_SIMPLE(name) :}
-					| CLASS CLASS_ID:name EXTENDS CLASS_ID:otherName LBRACE fieldMethodList:l RBRACE {: RESULT = new AST_CLASSDECL_EXTENDED_LIST(name,otherName,l) :}
-					| CLASS CLASS_ID:name EXTENDS CLASS_ID:otherName LBRACE RBRACE {: RESULT = new AST_CLASSDECL_EXTENDED(name,otherName) :}
+classDecl	::=		CLASS CLASS_ID:name LBRACE fieldMethodList:l RBRACE  {:  RESULT = new AST_CLASSDECL_SIMPLE_LIST(name,l); :}
+					| CLASS CLASS_ID:name LBRACE RBRACE {: RESULT = new AST_CLASSDECL_SIMPLE(name); :}
+					| CLASS CLASS_ID:name EXTENDS CLASS_ID:otherName LBRACE fieldMethodList:l RBRACE {: RESULT = new AST_CLASSDECL_EXTENDED_LIST(name,otherName,l); :}
+					| CLASS CLASS_ID:name EXTENDS CLASS_ID:otherName LBRACE RBRACE {: RESULT = new AST_CLASSDECL_EXTENDED(name,otherName); :}
 					;				
 
 fieldMethodList ::=  field:f 	{: RESULT = new AST_FIELD_METHOD_LIST(f,null); :}
@@ -150,11 +150,11 @@ virtualCall ::= 	var:v DOT ID:name LPAREN expList:elst RPAREN      {: RESULT = n
 				
 exp          ::=       var:v                      					  {: RESULT = new AST_EXP_VAR(v);          :}
                        | call:cl                    				  {: RESULT = new AST_EXP_CALL(cl);          :}
-                       | exp:e1 binop:op exp:e2            			  {: RESULT = new AST_EXP_BINOP(e1, e2, op);:}
-                       | NEW type:t LBRACK exp:e RBRACK    			  {: RESULT = new AST_EXP_TYPE(t, e);:}
-                       | NEW CLASS_ID:name LPAREN RPAREN   			  {: RESULT = new AST_EXP_CLASS(name);:}
-                       | literal:l   							      {: RESULT = new AST_EXP_LITERAL(l);:}
-                       | LPAREN exp:e RPAREN    					  {: RESULT = new AST_EXP_INPAREN(e);:}
+                       | exp:e1 binop:op exp:e2            			  {: RESULT = new AST_EXP_BINOP(e1, e2, op); :}
+                       | NEW type:t LBRACK exp:e RBRACK    			  {: RESULT = new AST_EXP_TYPE(t, e); :}
+                       | NEW CLASS_ID:name LPAREN RPAREN   			  {: RESULT = new AST_EXP_CLASS(name); :}
+                       | literal:l   							      {: RESULT = new AST_EXP_LITERAL(l); :}
+                       | LPAREN exp:e RPAREN    					  {: RESULT = new AST_EXP_INPAREN(e); :}
                        ;
 
 
@@ -162,22 +162,22 @@ expList ::= 	exp:e 	{: RESULT = new AST_EXP_LIST(e,null); :}
 				|  exp:e COMMA expList:l  {: RESULT= new AST_EXP_LIST(e,l); :}
 				|  						{: RESULT= new AST_EXP_LIST(null,null); :}
 				;
-
-literal     ::=     INT:num                              {: RESULT = new AST_LITERAL_NUM(num);:}
-                    | STR:str                            {: RESULT = new AST_LITERAL_STRING(str);:}
-                    | NULL                               {: RESULT = new AST_LITERAL_NULL();:}
+ 
+literal     ::=     INT:num                              {: RESULT = new AST_LITERAL_NUM(num); :}
+                    | STR:str                            {: RESULT = new AST_LITERAL_STRING(str); :}
+                    | NULL                               {: RESULT = new AST_LITERAL_NULL(); :}
                     ;
 
 binop       ::=     MINUS                                {: RESULT = new AST_BINOP_MINUS(); :}
 					| PLUS								 {: RESULT = new AST_BINOP_PLUS(); :}
                     | TIMES                                {: RESULT = new AST_BINOP_TIMES(); :}
                     | DIVIDE                                {: RESULT = new AST_BINOP_DIVIDE();:}
-                    | LT                                {: RESULT = new AST_BINOP_LT();:}
-                    | LTE                                {: RESULT = new AST_BINOP_LTE();:}
-                    | GT                                {: RESULT = new AST_BINOP_GT();:}
-                    | GTE                                {: RESULT = new AST_BINOP_GTE();:}
-                    | EQUAL                                {: RESULT = new AST_BINOP_EQUAL();:}
-                    | NEQUAL                                {: RESULT = new AST_BINOP_NEQUAL();:}
+                    | LT                                {: RESULT = new AST_BINOP_LT(); :}
+                    | LTE                                {: RESULT = new AST_BINOP_LTE(); :}
+                    | GT                                {: RESULT = new AST_BINOP_GT(); :}
+                    | GTE                                {: RESULT = new AST_BINOP_GTE(); :}
+                    | EQUAL                                {: RESULT = new AST_BINOP_EQUAL(); :}
+                    | NEQUAL                                {: RESULT = new AST_BINOP_NEQUAL(); :}
                     ;
 
 formals    ::=      type:t ID:name                      {: RESULT = new AST_FORMALS_TYPEID(t, name);:}

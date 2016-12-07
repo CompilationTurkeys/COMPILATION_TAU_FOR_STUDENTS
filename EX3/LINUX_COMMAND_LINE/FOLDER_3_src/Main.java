@@ -35,8 +35,17 @@ public class Main
 			
 			/*******************************/
 			/* [4] Initialize a new parser */
+			
 			/*******************************/
-			p = new Parser(l);
+			
+			try {
+				p = new Parser(l);
+			}
+			catch(Exception e) {
+			System.out.println(e.getMessage());
+			file_writer.close();
+			return;
+			}
 
 			/********************************/
 			/* [5] Main reading tokens loop */
