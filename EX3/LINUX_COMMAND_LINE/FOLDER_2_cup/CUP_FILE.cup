@@ -214,5 +214,21 @@ commaTypeID     ::= COMMA type:t ID:name                {: RESULT = new AST_COMM
                     ;
 
 
-field           ::= type:t ID:name SEMICOLON // TODO FINISH FIELD AND METHOD
+field           ::= type:t ID:name SEMICOLON  {:RESULT = new AST_FIELD_SIMPLE(t,name); :}
+					| type:t idList:l SEMICOLON {RESULT = new AST_FIELD_IDLIST(t,l); :}
+				;
+				
+idList			::= ID:name					  {: RESULT = new AST_IDLIST(name,null);  :}
+					| ID:name COMMA idList:l  {: RESULT= new AST_IDLIST(name,l); :}
+					;
+
+method			::= type:t ID:name LPAREN RPAREN LBRACK RBRACK {: RESULT= new AST_METHOD_TYPE_SIMPLE(t,name); :}
+					| type:t ID:name LPAREN formals:f RPAREN LBRACK RBRACK {: RESULT= new AST_METHOD_TYPE_FORMALS(t,name,f); :}
+					| type:t ID:name LPAREN formals:f RPAREN LBRACK stmtList:l RBRACK {: RESULT = new AST_METHOD_TYPE_FORMALS_STMT(t,name,f,l); :}
+					| type:t ID:name LPAREN RPAREN LBRACK stmtList:l RBRACK {: RESULT = new AST_METHOD_TYPE_STMT(t,name,l); :}
+					| VOID ID:name LPAREN RPAREN LBRACK RBRACK {: RESULT= new AST_METHOD_VOID_SIMPLE(name); :}
+					| VOID ID:name LPAREN formals:f RPAREN LBRACK RBRACK {: RESULT= new AST_METHOD_VOID_FORMALS(name,f); :}
+					| VOID ID:name LPAREN formals:f RPAREN LBRACK stmtList:l RBRACK {: RESULT = new AST_METHOD_VOID_FORMALS_STMT(name,f,l); :}
+					| VOID ID:name LPAREN RPAREN LBRACK stmtList:l RBRACK {: RESULT = new AST_METHOD_VOID_STMT(name,l); :}
+
 
