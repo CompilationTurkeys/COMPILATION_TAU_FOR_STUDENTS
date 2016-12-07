@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_COMMATYPEID_LIST extends AST_NODE
+public class AST_COMMATYPEID_LIST extends AST_Node
 {
 	public AST_COMMATYPEID head;
 	public AST_COMMATYPEID_LIST tail;

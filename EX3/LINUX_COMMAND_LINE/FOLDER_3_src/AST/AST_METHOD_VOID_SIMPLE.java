@@ -7,7 +7,7 @@ public class AST_METHOD_VOID_SIMPLE extends AST_METHOD
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_METHOD_TYPE_SIMPLE(String id)
+	public AST_METHOD_VOID_SIMPLE(String id)
 	{
 		this.id = id;
 	}

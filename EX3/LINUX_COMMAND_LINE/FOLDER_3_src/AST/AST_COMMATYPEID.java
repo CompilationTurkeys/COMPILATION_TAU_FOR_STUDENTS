@@ -1,9 +1,9 @@
 package AST;
 
-public class AST_COMMATYPEID extends AST_NODE
+public class AST_COMMATYPEID extends AST_Node
 {
 	public String name;
-	public AST_TYPE type
+	public AST_TYPE type;
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/

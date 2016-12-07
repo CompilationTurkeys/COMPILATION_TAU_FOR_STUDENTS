@@ -3,7 +3,7 @@ package AST;
 public class AST_STMT_TYPE extends AST_STMT
 {
 	public AST_TYPE type;
-	public Sring name;
+	public String name;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */

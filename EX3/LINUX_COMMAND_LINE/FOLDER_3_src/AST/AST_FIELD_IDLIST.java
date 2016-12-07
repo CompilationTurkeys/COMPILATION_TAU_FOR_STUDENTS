@@ -1,15 +1,17 @@
 package AST;
 
-public class AST_FIELD_IDLIST extends AST_FIELD_SIMPLE
+public class AST_FIELD_IDLIST extends AST_Node
 {
 	public AST_IDLIST lst;
+	public AST_TYPE type;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_FIELD_IDLIST(String name,AST_IDLIST lst)
+	public AST_FIELD_IDLIST(AST_TYPE type,AST_IDLIST lst)
 	{
-		super(name);
+		
 		this.lst = lst;
+		this.type = type;
 	}
 }

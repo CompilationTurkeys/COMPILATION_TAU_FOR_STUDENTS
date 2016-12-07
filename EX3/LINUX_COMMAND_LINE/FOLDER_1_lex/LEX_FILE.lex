@@ -74,7 +74,7 @@ LINETERMINATOR	= \r|\n|\r\n
 WHITESPACE		= {LINETERMINATOR} | [ \t\f]
 INTEGER			= 0 | [1-9][0-9]*
 IDENTIFIER		= [a-z][a-zA-Z_0-9]*
-QUOTE			= \"([^\\\"]|\\.)*\"
+STR			= \"([^\\\"]|\\.)*\"
 CLASSID 		= [A-Z][a-z_0-9]*
 COMMENTS		= "/*"((("*"[^/])?)|[^*])*"*/" | "//".*
 
@@ -99,52 +99,38 @@ COMMENTS		= "/*"((("*"[^/])?)|[^*])*"*/" | "//".*
 
 "+"					{ return symbol(sym.PLUS);}
 "-"					{ return symbol(sym.MINUS);}
-"*"					{ return symbol(sym.MULTIPLY);}
+"*"					{ return symbol(sym.TIMES);}
 "/"					{ return symbol(sym.DIVIDE);}
-"("					{ return symbol(sym.LP);}
-")"					{ return symbol(sym.RP);}
+"("					{ return symbol(sym.LPAREN);}
+")"					{ return symbol(sym.RPAREN);}
 "class"				{ return symbol(sym.CLASS);}
-"{"					{ return symbol(sym.LCBR);}
-"int"				{ return symbol(sym.INT);}
-"["					{ return symbol(sym.LB);}
-"]"					{ return symbol(sym.RB);}
-";"					{ return symbol(sym.SEMI);}
+"{"					{ return symbol(sym.LBRACE);}
+"int"				{ return symbol(sym.INTEGER);}
+"["					{ return symbol(sym.LBRACK);}
+"]"					{ return symbol(sym.RBRACK);}
+";"					{ return symbol(sym.SEMICOLON);}
 "="							{ return symbol(sym.ASSIGN);}
-"boolean"					{ return symbol(sym.BOOLEAN);}
-"break"						{ return symbol(sym.BREAK);}
 ","							{ return symbol(sym.COMMA);}
-"continue"					{ return symbol(sym.CONTINUE);}
 "."							{ return symbol(sym.DOT);}
 "=="					{ return symbol(sym.EQUAL);}
 "extends"				{ return symbol(sym.EXTENDS);}
-"else"					{ return symbol(sym.ELSE);}
-"false"					{ return symbol(sym.FALSE);}
 ">"						{ return symbol(sym.GT);}
 ">="						{ return symbol(sym.GTE);}
 "if"						{ return symbol(sym.IF);}
-"integer"						{ return symbol(sym.INTEGER);}
-"&&"						{ return symbol(sym.LAND);}
-"length"						{ return symbol(sym.LENGTH);}
 "new"						{ return symbol(sym.NEW);}
-"!"						{ return symbol(sym.LNEG);}
-"||"						{ return symbol(sym.LOR);}
 "<"						{ return symbol(sym.LT);}
 "<="						{ return symbol(sym.LTE);}
-"%"						{ return symbol(sym.MOD);}
 "!="						{ return symbol(sym.NEQUAL);}
 "null"						{ return symbol(sym.NULL);}
-"}"						{ return symbol(sym.RCBR);}
+"}"						{ return symbol(sym.RBRACE);}
 "return"						{ return symbol(sym.RETURN);}
-"static"						{ return symbol(sym.STATIC);}
 "string"						{ return symbol(sym.STRING);}
-"this"						{ return symbol(sym.THIS);}
-"true"						{ return symbol(sym.TRUE);}
 "void"						{ return symbol(sym.VOID);}
 "while"						{ return symbol(sym.WHILE);}
 <<EOF>>     				{ return symbol(sym.EOF);}
 
 
-{QUOTE}  			{ return symbol(sym.QUOTE);}
+{STR}  				{ return symbol(sym.STR);}
 {CLASSID}  			{ return symbol(sym.CLASS_ID);}
 {INTEGER}			{ return symbol(sym.INTEGER, new Integer(yytext()));}   
 {WHITESPACE}		{ /* just skip what was found, do nothing */ }

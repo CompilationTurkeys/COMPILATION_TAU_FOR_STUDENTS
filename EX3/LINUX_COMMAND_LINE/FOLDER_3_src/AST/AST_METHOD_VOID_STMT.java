@@ -7,7 +7,7 @@ public class AST_METHOD_VOID_STMT extends AST_METHOD_VOID_SIMPLE
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_METHOD_VOID_FORMALS(String id, AST_STMT_LIST stmtList)
+	public AST_METHOD_VOID_STMT(String id, AST_STMT_LIST stmtList)
 	{
 		super(id);
 		this.stmtList = stmtList;

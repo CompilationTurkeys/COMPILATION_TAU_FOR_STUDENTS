@@ -1,16 +1,17 @@
 package AST;
 
-public class AST_CLASSDECL_EXTENDED_LIST extends AST_CLASSDECL_EXTENDED
+public class AST_CLASSDECL_EXTENDED extends AST_CLASSDECL_SIMPLE
 {
-	public AST_FIELD_METHOD_LIST list;
- 
+	public String name;
+	
+	public String otherName;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_CLASSDECL_EXTENDED_LIST(String name,String otherName,AST_FIELD_METHOD_LIST list)
+	public AST_CLASSDECL_EXTENDED(String name,String otherName)
 	{
-		super(name,otherName);
-		this.list = list;
+		super(name);
+		this.otherName = otherName;
 	}
 }

@@ -7,7 +7,7 @@ public class AST_METHOD_TYPE_FORMALS_STMT extends AST_METHOD_TYPE_FORMALS
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_METHOD_TYPE_FORMALS(AST_TYPE type,String id, AST_FORMALS formals, AST_STMT_LIST stmtList)
+	public AST_METHOD_TYPE_FORMALS_STMT(AST_TYPE type,String id, AST_FORMALS formals, AST_STMT_LIST stmtList)
 	{
 		super(type,id,formals);
 		this.stmtList = stmtList;

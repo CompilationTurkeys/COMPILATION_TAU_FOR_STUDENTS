@@ -3,7 +3,7 @@ package AST;
 public class AST_FORMALS_TYPEID extends AST_FORMALS
 {
 	public String name;
-	public AST_TYPE type
+	public AST_TYPE type;
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/

@@ -41,14 +41,10 @@ public class Main
 			/********************************/
 			/* [5] Main reading tokens loop */
 			/********************************/
-			AST_STMT_LIST stmtList = (AST_STMT_LIST) p.parse().value;
+			p.parse();
 			
-			while (stmtList != null)
-			{
-				System.out.print(stmtList.PrintMe());
-				System.out.print("\n");				
-				stmtList = stmtList.tail;
-			}
+			file_writer.write("OK");
+		
 			
 			/**************************/
 			/* [10] Close output file */
