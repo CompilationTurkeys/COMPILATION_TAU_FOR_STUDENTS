@@ -42,15 +42,15 @@ public class Main
 				p = new Parser(l);
 			}
 			catch(Exception e) {
-			System.out.println(e.getMessage());
-			file_writer.close();
-			return;
+				System.out.println(e.getMessage());
+				file_writer.close();
+				return;
 			}
 
 			/********************************/
 			/* [5] Main reading tokens loop */
 			/********************************/
-			p.parse();
+			p.debug_parse();
 			
 			file_writer.write("OK");
 		

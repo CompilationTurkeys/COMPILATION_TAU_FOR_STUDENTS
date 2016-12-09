@@ -25,7 +25,7 @@ class Quicksort {
         while (a[i] < pivot) i = i+1;
         while (a[j] > pivot) j = j-1;
 
-        if (i >= j) break;
+        //if (i >= j) break;
 
         tmp = a[i];
         a[i] = a[j];
@@ -41,7 +41,7 @@ class Quicksort {
     if (low < high) {
         int mid = partition(low, high);
         quicksort(low, mid);
-        quicksort(mid+1, high);
+        quicksort(mid+10, high);
     }
     }
 

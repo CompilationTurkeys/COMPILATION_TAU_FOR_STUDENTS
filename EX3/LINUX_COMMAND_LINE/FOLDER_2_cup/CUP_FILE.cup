@@ -4,6 +4,31 @@
 import java_cup.runtime.*;
 import AST.*;
 
+
+parser code 
+{:
+	public Lexer lexer;
+
+	public Parser(Lexer lexer)
+	{
+		super(lexer);
+		this.lexer = lexer;
+	}
+:}
+
+/************************/
+/* CUSTOMIZE CUP PARSER */
+/************************/
+scan with
+{:
+	Symbol s;
+	s = lexer.next_token();
+	System.out.print("Line:" + lexer.getLine()+ " ");
+	System.out.println(String.format("Tokenname:%s, TokenID:%d", s.value, s.sym));
+	return s; 
+:};
+
+
 /*************/
 /* TERMINALS */
 /*************/
@@ -95,7 +120,7 @@ start with program;
 /********************/
 
 stmtList	::=		stmt:s								{: RESULT = new AST_STMT_LIST(s,null); :}
-					| stmtList:l stmt:s					{: RESULT = new AST_STMT_LIST(s,l); :}
+					| stmt:s stmtList:l				{: RESULT = new AST_STMT_LIST(s,l); :}
 					;
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
@@ -108,7 +133,7 @@ program		::=		classDeclLst:cdl					{: RESULT = new AST_PROGRAM_CLASS_DECL_LIST(c
 
 
 classDeclLst::=		classDecl:cd						{: RESULT = new AST_CLASSDECL_LIST(cd,null); :}
-					| classDeclLst:l classDecl:cd		{: RESULT = new AST_CLASSDECL_LIST(cd,l); :}
+					| classDecl:cd classDeclLst:l		{: RESULT = new AST_CLASSDECL_LIST(cd,l); :}
 					;
 					
 classDecl	::=		CLASS CLASS_ID:name LBRACE fieldMethodList:l RBRACE  {:  RESULT = new AST_CLASSDECL_SIMPLE_LIST(name,l); :}
