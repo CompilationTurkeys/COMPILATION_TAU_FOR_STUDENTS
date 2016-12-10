@@ -1,9 +1,8 @@
 package AST;
 
-public class AST_CLASSDECL_EXTENDED extends AST_CLASSDECL_SIMPLE
+public class AST_CLASSDECL_EXTENDED extends AST_CLASSDECL
 {
 	public String name;
-	
 	public String otherName;
 
 	/*******************/
@@ -11,7 +10,7 @@ public class AST_CLASSDECL_EXTENDED extends AST_CLASSDECL_SIMPLE
 	/*******************/
 	public AST_CLASSDECL_EXTENDED(String name,String otherName)
 	{
-		super(name);
+		this.name = name;
 		this.otherName = otherName;
 	}
 }

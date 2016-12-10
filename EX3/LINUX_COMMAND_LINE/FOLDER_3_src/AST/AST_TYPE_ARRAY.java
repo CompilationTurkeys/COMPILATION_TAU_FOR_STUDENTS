@@ -8,7 +8,8 @@ public class AST_TYPE_ARRAY extends AST_TYPE
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_TYPE_ARRAY(AST_TYPE type){
+	public AST_TYPE_ARRAY(AST_TYPE type)
+	{
 		this.type = type;
 	}
 }
