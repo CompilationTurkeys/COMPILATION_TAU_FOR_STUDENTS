@@ -2,15 +2,15 @@ package AST;
 
 public class AST_VAR_SUBSCRIPT extends AST_VAR
 {
-	public AST_VAR var;
-	public AST_EXP subscript;
+	public AST_EXP e1;
+	public AST_EXP e2;
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VAR_SUBSCRIPT(AST_VAR var,AST_EXP subscript)
+	public AST_VAR_SUBSCRIPT(AST_EXP e1,AST_EXP e2)
 	{
-		this.var = var;
-		this.subscript = subscript;
+		this.e1 = e1;
+		this.e2 = e2;
 	}
 }

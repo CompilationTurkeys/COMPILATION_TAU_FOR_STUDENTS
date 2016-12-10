@@ -109,6 +109,10 @@ precedence left GT;
 precedence left GTE;
 precedence left EQUAL;
 precedence left NEQUAL;
+precedence right ASSIGN;
+precedence left LBRACK, RBRACK, LPAREN, RPAREN, DOT;
+
+
 
 /************************/
 /* START WITH: program */
@@ -124,8 +128,8 @@ stmtList	::=		stmt:s								{: RESULT = new AST_STMT_LIST(s,null); :}
 					;
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
-					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :} 
-					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :} 	
+					| exp:e DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(e,fieldName); :} 
+					| exp:e1 LBRACK exp:e2 RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(e1,e2);     :} 	
 					;
 					
 program		::=		classDeclLst:cdl					{: RESULT = new AST_PROGRAM_CLASS_DECL_LIST(cdl);  :}
@@ -169,9 +173,12 @@ type		::= 	INTEGER  {: RESULT = new AST_TYPE_INT(); :}
 call		::= 	virtualCall:vc 	{:RESULT = new AST_CALL_VCALL(vc); :};
 
 	
-virtualCall ::= 	var:v DOT ID:name LPAREN expList:elst RPAREN      {: RESULT = new AST_VCALL_EXP_EXPLIST(v,name,elst); :}
+virtualCall ::= 	exp:e DOT ID:name LPAREN expList:elst RPAREN      {: RESULT = new AST_VCALL_EXP_EXPLIST(e,name,elst); :}
 					| ID:name LPAREN expList:elst RPAREN			  {: RESULT = new AST_VCALL_SIMPLE_EXPLIST(name,elst); :}
+					| ID:name LPAREN RPAREN			                  {: RESULT = new AST_VCALL_SIMPLE_EXPLIST(name,null); :}
+					| exp:e DOT ID:name LPAREN RPAREN			  {: RESULT = new AST_VCALL_EXP_EXPLIST(e,name,null); :}
 					;
+					
 				
 exp          ::=       var:v                      					  {: RESULT = new AST_EXP_VAR(v);          :}
                        | call:cl                    				  {: RESULT = new AST_EXP_CALL(cl);          :}
@@ -185,7 +192,6 @@ exp          ::=       var:v                      					  {: RESULT = new AST_EXP
 
 expList ::= 	exp:e 	{: RESULT = new AST_EXP_LIST(e,null); :}
 				|  exp:e COMMA expList:l  {: RESULT= new AST_EXP_LIST(e,l); :}
-				/*|  						{: RESULT= new AST_EXP_LIST(null,null); :}*/
 				;
  
 literal     ::=     INT:num                              {: RESULT = new AST_LITERAL_NUM(num); :}
