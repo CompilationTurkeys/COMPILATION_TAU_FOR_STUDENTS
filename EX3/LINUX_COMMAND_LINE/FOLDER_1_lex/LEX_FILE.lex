@@ -74,7 +74,7 @@ LINETERMINATOR	= \r|\n|\r\n
 WHITESPACE		= {LINETERMINATOR} | [ \t\f]
 INTEGER			= 0 | [1-9][0-9]*
 IDENTIFIER		= [a-z][a-zA-Z_0-9]*
-STR			= \"([^\\\"]|\\.)*\"
+STR			    = \"([^\\\"]|\\.)*\"
 CLASSID 		= [A-Z][a-z_0-9]*
 COMMENTS		= "/*"((("*"[^/])?)|[^*])*"*/" | "//".*
 
