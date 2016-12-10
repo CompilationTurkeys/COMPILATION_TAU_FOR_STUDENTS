@@ -8,7 +8,8 @@ public class AST_TYPE_CLASS extends AST_TYPE
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_TYPE_CLASS(String name){
+	public AST_TYPE_CLASS(String name)
+	{
 		this.name = name;
 	}
 }

@@ -156,10 +156,10 @@ stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v
 					| IF    LPAREN exp:cond RPAREN  stmt:s 						{: RESULT = new AST_STMT_IF(cond,s); :}
 					| WHILE LPAREN exp:cond RPAREN  stmt:s 						{: RESULT = new AST_STMT_WHILE(cond,s); :}
 					| call:cl SEMICOLON											{: RESULT = new AST_STMT_CALL(cl); :}
-					| RETURN SEMICOLON											{: RESULT = new AST_STMT_RETURN(); :}
-					| RETURN exp:e SEMICOLON									{: RESULT = new AST_STMT_RETURN_EXP(e); :}
+					| RETURN SEMICOLON											{: RESULT = new AST_STMT_RETURN(null); :}
+					| RETURN exp:e SEMICOLON									{: RESULT = new AST_STMT_RETURN(e); :}
 					| LBRACE stmtList:body RBRACE								{: RESULT = new AST_STMT_MULTSTMTS(body); :}
-					| LBRACE RBRACE												{: RESULT = new AST_STMT_MULTSTMTS_EMPTY(); :}
+					| LBRACE RBRACE												{: RESULT = new AST_STMT_MULTSTMTS(null); :}
 					| type:t ID:name SEMICOLON									{: RESULT = new AST_STMT_TYPE(t,name); :}
 					| type:t ID:name ASSIGN exp:e SEMICOLON						{: RESULT = new AST_STMT_TYPE_EXP(t,name,e); :}
 					;
