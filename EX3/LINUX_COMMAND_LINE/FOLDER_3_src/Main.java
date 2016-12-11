@@ -42,7 +42,7 @@ public class Main
 				p = new Parser(l);
 				p.parse();
 			}
-			catch(Exception e) {
+			catch(Exception | Error e) {
 				file_writer.write("FAIL");
 				file_writer.close();
 				return;

@@ -7,6 +7,6 @@ int partition(int low, int high) {
 	int y = 80;
 	int j = 70;
 	
-	if (x+y) { x= 30; j = 40;}
+	if (x+y) { x= 30; j %= 40;}
 }
 }

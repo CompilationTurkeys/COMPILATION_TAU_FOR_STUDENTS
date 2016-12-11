@@ -137,7 +137,6 @@ program		::=		classDeclLst:cdl					{: RESULT = new AST_PROGRAM_CLASS_DECL_LIST(c
 					;
 
 
-
 classDeclLst::=		classDecl:cd						{: RESULT = new AST_CLASSDECL_LIST(cd,null); :}
 					| classDecl:cd classDeclLst:l		{: RESULT = new AST_CLASSDECL_LIST(cd,l); :}
 					;

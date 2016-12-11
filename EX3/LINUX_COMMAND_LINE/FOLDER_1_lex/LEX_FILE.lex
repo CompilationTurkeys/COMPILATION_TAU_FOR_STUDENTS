@@ -11,7 +11,6 @@
 /*************/
    
 import java_cup.runtime.*;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -40,6 +39,7 @@ import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 /* Note that this has to be the EXACT smae name of the class the CUP generates */
 /*******************************************************************************/
 %cupsym sym
+%scanerror Error
 
 /******************************************************************/
 /* CUP compatibility mode interfaces with a CUP generated parser. */
@@ -146,5 +146,4 @@ COMMENTS		= "/*"((("*"[^/])?)|[^*])*"*/" | "//".*
 
 }
 
-[^]                 { throw new SyntaxException("Unexpected input");}
-
+[^]                 { throw new Error("Line " + getLine() + ": Lexical error. Illegal character '" + yytext() + "'"); }
