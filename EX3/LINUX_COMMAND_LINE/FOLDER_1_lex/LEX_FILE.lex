@@ -59,7 +59,8 @@ import java_cup.runtime.*;
 	/* Create a new java_cup.runtime.Symbol with information about the current token */
 	/*********************************************************************************/
 	private Symbol symbol(int type)               {return new Symbol(type, yyline, yycolumn);}
-	private Symbol symbol(int type, Object value) {return new Symbol(type, yyline, yycolumn, value);}
+	private Symbol symbol(int type, String description)               {System.out.println("Token Description: "+description);return new Symbol(type, yyline, yycolumn);}
+	private Symbol symbol(int type, Object value, String description) {System.out.println("Token Description: "+description);return new Symbol(type, yyline, yycolumn, value);}
 
 	/*******************************************/
 	/* Enable line number extraction from main */
@@ -97,45 +98,45 @@ COMMENTS		= "/*"((("*"[^/])?)|[^*])*"*/" | "//".*
    
 <YYINITIAL> {
 
-"+"					{ return symbol(sym.PLUS);}
-"-"					{ return symbol(sym.MINUS);}
-"*"					{ return symbol(sym.TIMES);}
-"/"					{ return symbol(sym.DIVIDE);}
-"("					{ return symbol(sym.LPAREN);}
-")"					{ return symbol(sym.RPAREN);}
-"class"				{ return symbol(sym.CLASS);}
-"{"					{ return symbol(sym.LBRACE);}
-"int"				{ return symbol(sym.INTEGER);}
-"["					{ return symbol(sym.LBRACK);}
-"]"					{ return symbol(sym.RBRACK);}
-";"					{ return symbol(sym.SEMICOLON);}
-"="							{ return symbol(sym.ASSIGN);}
-","							{ return symbol(sym.COMMA);}
-"."							{ return symbol(sym.DOT);}
-"=="					{ return symbol(sym.EQUAL);}
-"extends"				{ return symbol(sym.EXTENDS);}
-">"						{ return symbol(sym.GT);}
-">="						{ return symbol(sym.GTE);}
-"if"						{ return symbol(sym.IF);}
-"new"						{ return symbol(sym.NEW);}
-"<"						{ return symbol(sym.LT);}
-"<="						{ return symbol(sym.LTE);}
-"!="						{ return symbol(sym.NEQUAL);}
-"null"						{ return symbol(sym.NULL);}
-"}"						{ return symbol(sym.RBRACE);}
-"return"						{ return symbol(sym.RETURN);}
-"string"						{ return symbol(sym.STRING);}
-"void"						{ return symbol(sym.VOID);}
-"while"						{ return symbol(sym.WHILE);}
-<<EOF>>     				{ return symbol(sym.EOF);}
+"+"					{ return symbol(sym.PLUS, "+");}
+"-"					{ return symbol(sym.MINUS, "-");}
+"*"					{ return symbol(sym.TIMES, "*");}
+"/"					{ return symbol(sym.DIVIDE, "/");}
+"("					{ return symbol(sym.LPAREN, "(");}
+")"					{ return symbol(sym.RPAREN, ")");}
+"class"				{ return symbol(sym.CLASS, "class");}
+"{"					{ return symbol(sym.LBRACE, "{");}
+"int"				{ return symbol(sym.INTEGER, "int");}
+"["					{ return symbol(sym.LBRACK, "[");}
+"]"					{ return symbol(sym.RBRACK, "]");}
+";"					{ return symbol(sym.SEMICOLON, ";");}
+"="							{ return symbol(sym.ASSIGN, "=");}
+","							{ return symbol(sym.COMMA, ",");}
+"."							{ return symbol(sym.DOT, ".");}
+"=="					{ return symbol(sym.EQUAL, "==");}
+"extends"				{ return symbol(sym.EXTENDS, "extends");}
+">"						{ return symbol(sym.GT, ">");}
+">="						{ return symbol(sym.GTE, ">=");}
+"if"						{ return symbol(sym.IF, "if");}
+"new"						{ return symbol(sym.NEW, "new") ;}
+"<"						{ return symbol(sym.LT, "<");}
+"<="						{ return symbol(sym.LTE, "<=");}
+"!="						{ return symbol(sym.NEQUAL, "!=");}
+"null"						{ return symbol(sym.NULL, "null");}
+"}"						{ return symbol(sym.RBRACE, "}");}
+"return"						{ return symbol(sym.RETURN, "return");}
+"string"						{ return symbol(sym.STRING, "string");}
+"void"						{ return symbol(sym.VOID, "void");}
+"while"						{ return symbol(sym.WHILE, "while");}
+<<EOF>>     				{ return symbol(sym.EOF, "EOF");}
 
 
-{STR}  				{ return symbol(sym.STR);}
-{CLASSID}  			{ return symbol(sym.CLASS_ID);}
-{INTEGER}			{ return symbol(sym.INTEGER, new Integer(yytext()));}   
+{STR}  				{ return symbol(sym.STR, yytext(), "STR");}
+{CLASSID}  			{ return symbol(sym.CLASS_ID, yytext(), "CLASS_ID");}
+{INTEGER}			{ return symbol(sym.INT, Integer.valueOf(yytext()), "INTEGER");}   
 {WHITESPACE}		{ /* just skip what was found, do nothing */ }
 {COMMENTS}			{ /* just skip what was found, do nothing */ }
-{IDENTIFIER}		{  return symbol(sym.ID);}
+{IDENTIFIER}		{  return symbol(sym.ID, yytext(), "IDENTIFIER");}
 
 }
 

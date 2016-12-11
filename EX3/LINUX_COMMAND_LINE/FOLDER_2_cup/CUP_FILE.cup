@@ -29,6 +29,7 @@ scan with
 :};
 
 
+
 /*************/
 /* TERMINALS */
 /*************/
@@ -63,7 +64,6 @@ terminal RETURN;
 terminal STRING;
 terminal VOID;
 terminal WHILE;
-
 
 
 /*************/
@@ -111,6 +111,8 @@ precedence left EQUAL;
 precedence left NEQUAL;
 precedence right ASSIGN;
 precedence left LBRACK, RBRACK, LPAREN, RPAREN, DOT;
+
+precedence left IF;
 
 
 

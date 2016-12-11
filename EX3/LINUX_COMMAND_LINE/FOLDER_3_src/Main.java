@@ -50,9 +50,21 @@ public class Main
 			/********************************/
 			/* [5] Main reading tokens loop */
 			/********************************/
-			p.debug_parse();
+			Symbol sm = p.parse();
 			
-			file_writer.write("OK");
+			try {
+				if (sm.equals(sym.EOF)){
+					file_writer.write("OK");
+				}
+				else {
+					file_writer.write("FAIL");
+
+				}
+			}
+			catch (Exception e ){
+				file_writer.write("FAIL");
+			}
+			
 		
 			
 			/**************************/
