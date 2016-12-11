@@ -40,33 +40,19 @@ public class Main
 			
 			try {
 				p = new Parser(l);
+				p.parse();
 			}
 			catch(Exception e) {
-				System.out.println(e.getMessage());
+				file_writer.write("FAIL");
 				file_writer.close();
 				return;
 			}
 
+			
 			/********************************/
 			/* [5] Main reading tokens loop */
 			/********************************/
-			Symbol sm = p.parse();
-			
-			try {
-				if (sm.equals(sym.EOF)){
-					file_writer.write("OK");
-				}
-				else {
-					file_writer.write("FAIL");
-
-				}
-			}
-			catch (Exception e ){
-				file_writer.write("FAIL");
-			}
-			
-		
-			
+			file_writer.write("OK");
 			/**************************/
 			/* [10] Close output file */
 			/**************************/
@@ -76,6 +62,7 @@ public class Main
 		catch (Exception e)
 		{
 			e.printStackTrace();
+
 		}
 	}
 }

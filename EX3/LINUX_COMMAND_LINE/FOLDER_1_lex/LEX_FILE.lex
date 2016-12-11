@@ -11,6 +11,7 @@
 /*************/
    
 import java_cup.runtime.*;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -38,7 +39,7 @@ import java_cup.runtime.*;
 /*******************************************************************************/
 /* Note that this has to be the EXACT smae name of the class the CUP generates */
 /*******************************************************************************/
-%cupsym TokenNames
+%cupsym sym
 
 /******************************************************************/
 /* CUP compatibility mode interfaces with a CUP generated parser. */
@@ -67,6 +68,11 @@ import java_cup.runtime.*;
 	/*******************************************/
 	public int getLine() { return yyline + 1; } 
 %}
+
+%eofval{
+	System.out.println("OK");
+	return symbol(sym.EOF);
+%eofval}
 
 /***********************/
 /* MACRO DECALARATIONS */
@@ -140,5 +146,5 @@ COMMENTS		= "/*"((("*"[^/])?)|[^*])*"*/" | "//".*
 
 }
 
-[^]                 { System.out.print("FAIL");System.exit(-1);}
+[^]                 { throw new SyntaxException("Unexpected input");}
 

@@ -65,7 +65,6 @@ terminal STRING;
 terminal VOID;
 terminal WHILE;
 
-
 /*************/
 /* TERMINALS */
 /*************/
@@ -136,6 +135,7 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					
 program		::=		classDeclLst:cdl					{: RESULT = new AST_PROGRAM_CLASS_DECL_LIST(cdl);  :}
 					;
+
 
 
 classDeclLst::=		classDecl:cd						{: RESULT = new AST_CLASSDECL_LIST(cd,null); :}
