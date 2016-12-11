@@ -39,7 +39,7 @@ import java_cup.runtime.*;
 /* Note that this has to be the EXACT smae name of the class the CUP generates */
 /*******************************************************************************/
 %cupsym sym
-%scanerror Error
+%scanerror Exception
 
 /******************************************************************/
 /* CUP compatibility mode interfaces with a CUP generated parser. */
@@ -146,4 +146,4 @@ COMMENTS		= "/*"((("*"[^/])?)|[^*])*"*/" | "//".*
 
 }
 
-[^]                 { throw new Error("Line " + getLine() + ": Lexical error. Illegal character '" + yytext() + "'"); }
+[^]                 { throw new Exception("Line " + getLine() + ": Lexical error. Illegal character '" + yytext() + "'"); }
