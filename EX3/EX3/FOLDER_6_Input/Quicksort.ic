@@ -21,7 +21,7 @@ class Quicksort {
     int j = high;
     int tmp;
 
-    while (true) {
+    while (i == 1) {
         while (a[i] < pivot) i = i+1;
         while (a[j] > pivot) j = j-1;
 
@@ -48,7 +48,7 @@ class Quicksort {
     void initArray() {
     int i = 0;
     while(i < a.length) {
-        a[i] =  Library.random(a.length*2);
+        a[i] =  library.random(a.length*2);
         i = i+1;
     }
     }
@@ -56,27 +56,27 @@ class Quicksort {
     void printArray() {
     int i = 0;
 
-    Library.print("Array elements: ");
+    library.print("Array elements: ");
     while(i<a.length) {
-        Library.printi(a[i]);
-        Library.print (" ");
+        library.printi(a[i]);
+        library.print (" ");
         i = i+1;
     }
-    Library.print("\n");
+    library.print("\n");
     }
 
-    static void main(string[] args) {
+    void main(string[] args) {
     int n;
 
     if (args.length != 1) {
-        Library.println("Unspecified array length");
-        Library.exit(1);
+        library.println("Unspecified array length");
+        library.exit(1);
     }
 
-    n = Library.stoi(args[0],0);
+    n = library.stoi(args[0],0);
     if (n<=0) {
-        Library.println("Invalid array length");
-        Library.exit(1);
+        library.println("Invalid array length");
+        library.exit(1);
     }
     Quicksort s = new Quicksort();
     s.a = new int[n];

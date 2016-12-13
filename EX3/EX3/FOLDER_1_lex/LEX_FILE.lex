@@ -60,8 +60,8 @@ import java_cup.runtime.*;
 	/* Create a new java_cup.runtime.Symbol with information about the current token */
 	/*********************************************************************************/
 	private Symbol symbol(int type)               {return new Symbol(type, yyline, yycolumn);}
-	private Symbol symbol(int type, String description)               {System.out.println("Token Description: "+description);return new Symbol(type, yyline, yycolumn);}
-	private Symbol symbol(int type, Object value, String description) {System.out.println("Token Description: "+description);return new Symbol(type, yyline, yycolumn, value);}
+	private Symbol symbol(int type, String description)               {return new Symbol(type, yyline, yycolumn);}
+	private Symbol symbol(int type, Object value, String description) {return new Symbol(type, yyline, yycolumn, value);}
 
 	/*******************************************/
 	/* Enable line number extraction from main */
@@ -70,9 +70,9 @@ import java_cup.runtime.*;
 %}
 
 %eofval{
-	System.out.println("OK");
-	return symbol(sym.EOF);
+	return symbol(sym.EOF, "EOF");
 %eofval}
+%eofclose
 
 /***********************/
 /* MACRO DECALARATIONS */
@@ -134,7 +134,7 @@ COMMENTS		= "/*"((("*"[^/])?)|[^*])*"*/" | "//".*
 "string"						{ return symbol(sym.STRING, "string");}
 "void"						{ return symbol(sym.VOID, "void");}
 "while"						{ return symbol(sym.WHILE, "while");}
-<<EOF>>     				{ return symbol(sym.EOF, "EOF");}
+
 
 
 {STR}  				{ return symbol(sym.STR, yytext(), "STR");}

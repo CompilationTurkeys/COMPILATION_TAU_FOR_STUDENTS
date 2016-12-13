@@ -41,20 +41,20 @@ class Sieve {
 
   void printPrimes() {
     int i = 2;
-    Library.print("Primes less than ");
-    Library.printi(num.length);
-    Library.print(": ");
+    library.print("Primes less than ");
+    library.printi(num.length);
+    library.print(": ");
     while (i < num.length) {
       if (num[i] != 0) {
-        Library.printi(num[i]);
-        Library.print(" ");
+        library.printi(num[i]);
+        library.print(" ");
       }
       i=i+1;
     }
   }
 
 
-  static void main(string[] args) {
+  void main(string[] args) {
     (new Sieve()).test(args);
   }
 
@@ -62,14 +62,14 @@ class Sieve {
     int n;
 
     if (args.length != 1) {
-      Library.println("Unspecified number.");
+      library.println("Unspecified number.");
       return;
     }
 
-    Library.println("");
-    n = Library.stoi(args[0], 0);
+    library.println("");
+    n = library.stoi(args[0], 0);
     if (n <= 0) {
-      Library.println("Invalid array length");
+      library.println("Invalid array length");
       return;
     }
     num = new int[n];
@@ -77,7 +77,7 @@ class Sieve {
     initArray();
     sieveAll();
     printPrimes();
-    Library.println("");
+    library.println("");
 
   }
 

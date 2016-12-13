@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="lib" path="FOLDER_5_CUP_JARS/java-cup-11b-runtime.jar"/>
+	<classpathentry kind="lib" path="FOLDER_5_CUP_JARS/java-cup-11b.jar"/>
+	<classpathentry kind="lib" path="PARSER.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="CUP_RUNTIME_JAR"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

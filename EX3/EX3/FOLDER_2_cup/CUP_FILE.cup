@@ -23,8 +23,6 @@ scan with
 {:
 	Symbol s;
 	s = lexer.next_token();
-	System.out.print("Line:" + lexer.getLine()+ " ");
-	System.out.println(String.format("Tokenname:%s, TokenID:%d", s.value, s.sym));
 	return s; 
 :};
 
